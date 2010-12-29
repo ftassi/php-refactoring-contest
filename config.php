@@ -3,6 +3,8 @@ error_reporting(0);
 require_once('functions.php');
 require_once 'lib/Recordset.class.php';
 require_once 'lib/Database.class.php';
+require_once 'lib/ContactForm.class.php';
+
 $database['host'] = 'localhost';
 $database['username'] = 'legacy_code';
 $database['password'] = 'legacy_code';
