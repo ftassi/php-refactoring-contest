@@ -13,31 +13,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
   
   if(count($errors) == 0)
   {
-    $query = sprintf("UPDATE contacts set firstname = '%s', 
-                                                                          lastname = '%s',
-                                                                          phone = '%s', 
-                                                                          mobile = '%s' WHERE id = %s",
-                       mysql_real_escape_string($_POST['firstname']),
-                       mysql_real_escape_string($_POST['lastname']),
-                       mysql_real_escape_string($_POST['phone']),
-                       mysql_real_escape_string($_POST['mobile']),
-                       mysql_real_escape_string($_POST['id'])
-                      );
-    
-    $rs = mysql_query($query);
-    
-    if (!$rs)
-    {
-      die_with_error(mysql_error(), $query);
-    }
-    
+  	$sql = "UPDATE contacts set firstname = '%s',lastname = '%s',phone = '%s',mobile = '%s' WHERE id = %s";
+  	$db->execute($sql, $_POST['firstname'], $_POST['lastname'], $_POST['phone'],$_POST['mobile'],$_POST['id']);
     header('Location: index.php');
   }
 }
 else 
 {
-  $query = sprintf('SELECT * FROM contacts WHERE id = %s', mysql_real_escape_string($_GET['id']));
-  $rs = New Recordset(mysql_query($query));
+  $rs = $db->query('SELECT * FROM contacts WHERE id = %d', $_GET['id']);
 	$rs->rewind();
 	$row = $rs->current();  
   $_POST['id'] = $row['id'];

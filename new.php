@@ -7,19 +7,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
   
   if(count($errors) == 0)
   {
-    $query = sprintf("INSERT INTO contacts (firstname, lastname, phone, mobile) VALUES ('%s', '%s', '%s', '%s')",
-                       mysql_real_escape_string($_POST['firstname']),
-                       mysql_real_escape_string($_POST['lastname']),
-                       mysql_real_escape_string($_POST['phone']),
-                       mysql_real_escape_string($_POST['mobile'])
-                      );
-    
-    $rs = mysql_query($query);
-    
-    if (!$rs)
-    {
-      die_with_error(mysql_error(), $query);
-    }
+		$sql = "INSERT INTO contacts (firstname, lastname, phone, mobile) VALUES ('%s', '%s', '%s', '%s')";
+		$db->execute($sql, $_POST['firstname'], $_POST['lastname'], $_POST['phone'], $_POST['mobile']);
     header('Location: index.php');
     
   }

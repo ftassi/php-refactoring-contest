@@ -1,6 +1,6 @@
 <?php
 include_once('config.php');
-$contacts = new Recordset(mysql_query('SELECT * FROM contacts ORDER BY lastname'));
+$contacts = $db->query('SELECT * FROM contacts ORDER BY lastname');
 ?>
 
 <?php include_once('header.php') ?>
