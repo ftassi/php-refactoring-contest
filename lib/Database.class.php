@@ -48,7 +48,7 @@ class Database
 		}
 		catch(InvalidArgumentException $e)
 		{
-		  throw new Exception (mysql_error());
+			$this->throwSqlException($args[0], mysql_error());
 		}
 	}
 	
@@ -63,7 +63,7 @@ class Database
 		}
 		else
 		{
-			throw new Exception(mysql_error());
+			$this->throwSqlException($args[0], mysql_error());
 		}
 	}
 	
@@ -118,4 +118,13 @@ class Database
 		$queryParts = array_merge(array($sql), $parameters);
 		return $queryParts;
 	}
+
+	protected function throwSqlException($query, $error)
+	{
+		$message = 'Invalid query: ' . $error. "\n";
+		$message .= 'Whole query: ' . $query;
+		throw new MySqlException (mysql_error());
+	}
 }
+
+class MySqlException extends Exception {}

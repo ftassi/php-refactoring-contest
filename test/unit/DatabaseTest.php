@@ -69,7 +69,7 @@ class DatabaseTest extends PHPUnit_Extensions_Database_TestCase
 	}
 
 	/**
-	 * @expectedException Exception
+	 * @expectedException MySqlException
 	 */
 	public function testInvalidQuery()
 	{
@@ -78,6 +78,16 @@ class DatabaseTest extends PHPUnit_Extensions_Database_TestCase
 		$db->query($sql);
 	}
 
+	/**
+	 * @expectedException MySqlException
+	 */
+	public function testInvalidExecute()
+	{
+		$sql = 'invalid query';
+		$db =$this->getDbConnection();
+		$db->execute($sql);
+	}
+	
 	/**
 	 * @expectedException BadMethodCallException
 	 */
