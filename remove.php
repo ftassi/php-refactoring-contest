@@ -6,9 +6,6 @@ if(!$_GET['id'])
  die('Some error occured!!');
 }
 
-$db = @mysql_connect($database['host'], $database['username'], $database['password']) or die('Can\'t connect do database');
-@mysql_select_db($database['name']) or die('The database selected does not exists');
-
 $query = sprintf('DELETE FROM contacts where ID = %s',
                  mysql_real_escape_string($_GET['id']));
                  

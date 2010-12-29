@@ -1,9 +1,6 @@
 <?php
 include_once('config.php');
 
-$db = @mysql_connect($database['host'], $database['username'], $database['password']) or die('Can\'t connect do database');
-@mysql_select_db($database['name']) or die('The database selected does not exists');
-
 $query = 'SELECT * FROM contacts ORDER BY lastname';
 $rs = mysql_query($query);
 

@@ -7,9 +7,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
   
   if(count($errors) == 0)
   {
-    $db = @mysql_connect($database['host'], $database['username'], $database['password']) or die('Can\'t connect do database');
-    @mysql_select_db($database['name']) or die('The database selected does not exists');
-
     $query = sprintf("INSERT INTO contacts (firstname, lastname, phone, mobile) VALUES ('%s', '%s', '%s', '%s')",
                        mysql_real_escape_string($_POST['firstname']),
                        mysql_real_escape_string($_POST['lastname']),
