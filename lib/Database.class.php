@@ -55,7 +55,7 @@ class Database
 	public function execute()
 	{
 		$args = func_get_args();
-		$sql = call_user_func(array($this, 'hydrateQuery'), $args);
+		$sql = $this->hydrateQuery($args);
 		$result = mysql_query($sql);
 		if ($result === true)
 		{
@@ -78,10 +78,34 @@ class Database
 	
 	protected function hydrateQuery($args)
 	{
+		$this->checkParameters($args);
 		$sql = call_user_func_array('sprintf', $args);
 		return $sql;
 	}
 	
+	protected function checkParameters($args)
+	{
+		$args = array_filter($args,array($this, 'removeNullParameter'));
+		$regExp = "/%[-+]?(?:[ 0]|'.)?a?\d*(?:\.\d*)?[%bcdeEufFgGosxX]/";
+		$requestedParams = preg_match($regExp, $args[0]);
+		if ((count($args) - 1) < $requestedParams)
+		{
+			throw new BadMethodCallException(sprintf('Invalid parameter counts, %d needed %d founded in "%s"', $requestedParams, count($args)-1, $args[0]));
+		}
+	}
+
+	protected function removeNullParameter($var)
+	{
+		if (is_null($var))
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
 	protected function escapeQueryParameters($queryParts)
 	{
 		$parameters = array();

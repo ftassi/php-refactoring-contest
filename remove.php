@@ -1,11 +1,13 @@
 <?php
-include_once('config.php');
-
-if(!$_GET['id'])
+require_once('config.php');
+try 
+{
+	$db->execute('DELETE FROM contacts where ID = %s', $_GET['id']);
+	header('Location: index.php');
+}
+catch(Exception $e)
 {
  die('Some error occured!!');
 }
-$db->execute('DELETE FROM contacts where ID = %s', $_GET['id']);
-header('Location: index.php');
 
 ?>

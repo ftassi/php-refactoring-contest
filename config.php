@@ -1,6 +1,5 @@
 <?php
 error_reporting(0);
-require_once('functions.php');
 require_once 'lib/Recordset.class.php';
 require_once 'lib/Database.class.php';
 require_once 'lib/ContactForm.class.php';

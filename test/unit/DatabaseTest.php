@@ -78,6 +78,26 @@ class DatabaseTest extends PHPUnit_Extensions_Database_TestCase
 		$db->query($sql);
 	}
 
+	/**
+	 * @expectedException BadMethodCallException
+	 */
+	public function testQueryInvalidArgumentsCount()
+	{
+		$sql = "SELECT * from contacts where id = %d";
+		$db = $this->getDbConnection();
+		$db->query($sql);
+	}
+	
+	/**
+	 * @expectedException BadMethodCallException
+	 */
+	public function testQueryNullArgument()
+	{
+		$sql = "SELECT * from contacts where id = %d";
+		$db = $this->getDbConnection();
+		$db->query($sql, null);
+	}
+
 	public function testExecute()
 	{
 		$db = $this->getDbConnection();

@@ -1,4 +1,12 @@
 <?php
+/**
+ * Funzioni di validazione e di gestione degli errori generiche
+ * 
+ * Il file è deprecato e non più necessario(viene mantenuto per 
+ * retrocompatibilità)
+ * 
+ * @deprecated 
+ */
 
 /**
  * Validate form
