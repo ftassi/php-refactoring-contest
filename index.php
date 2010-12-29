@@ -1,10 +1,19 @@
 <?php
-include_once('config.php');
+try 
+{
+	require_once('config.php');
 $contacts = $db->query('SELECT * FROM contacts ORDER BY lastname');
+}
+catch(MySqlException $e)
+{
+  die($e->getMessage());
+}
+catch(Exception $e)
+{
+	die('Some error occured!!');
+}
 ?>
-
-<?php include_once('header.php') ?>
-
+<?php ob_start();?>
 <div class="actions">
   <a href="new.php">New contact</a>
  </div>
@@ -32,5 +41,6 @@ $contacts = $db->query('SELECT * FROM contacts ORDER BY lastname');
  <?php else: ?>
   Database is empty
 <?php endif ?>
+<?php $content = ob_get_clean();?>
 
-<?php include_once('footer.php') ?>
+<?php require_once('layout.php') ?>

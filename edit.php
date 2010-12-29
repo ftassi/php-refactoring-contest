@@ -20,14 +20,17 @@ try
 		$form->bind($rs[0]);
 	}
 }
+catch(MySqlException $e)
+{
+  die($e->getMessage());
+}
 catch(Exception $e)
 {
 	die('Some error occured!!');
 }
 ?>
+<?php ob_start();?>
+<?php require_once('_form.php') ?>
+<?php $content = ob_get_clean();?>
 
-<?php include_once('header.php') ?>
-
-<?php include_once('_form.php') ?>
-
-<?php include_once('footer.php') ?>
+<?php require_once('layout.php') ?>
