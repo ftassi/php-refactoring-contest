@@ -1,6 +1,7 @@
 <?php
 error_reporting(0);
 require_once('functions.php');
+require_once 'lib/Recordset.class.php';
 
 $database['host'] = 'localhost';
 $database['username'] = 'legacy_code';
