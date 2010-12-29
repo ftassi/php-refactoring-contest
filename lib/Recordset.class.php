@@ -1,5 +1,5 @@
 <?php
-class Recordset implements Iterator, Countable
+class Recordset implements Iterator, Countable, ArrayAccess
 {
 	protected $resource;
 	protected $position = 0;
@@ -38,7 +38,7 @@ class Recordset implements Iterator, Countable
 	public function rewind()
 	{
 		$this->position = 0;
-		mysql_data_seek($this->resource, 0); 
+		$this->seek(0);
 		$this->row = mysql_fetch_assoc($this->resource); 
 	}
 	
@@ -50,5 +50,52 @@ class Recordset implements Iterator, Countable
 	public function count()
 	{
 		return  mysql_num_rows($this->resource);
+	}
+
+	public function offsetGet($offset)
+	{
+		if ($this->seek($offset))
+		{
+			$this->row = mysql_fetch_assoc($this->resource);
+			return $this->row;
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	public function offsetExists($offset)
+	{
+		$rows = mysql_num_rows($this->resource);
+		if($offset >= 0  and $offset <= $rows)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public function offsetSet($offset, $value)
+	{
+	}
+
+	public function offsetUnset($offset)
+	{
+	}
+
+	protected function seek($offset)
+	{
+		if ($this->offsetExists($offset) && mysql_data_seek($this->resource, $offset))
+		{
+			$this->row = $offset;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }

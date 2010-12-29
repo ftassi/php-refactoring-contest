@@ -70,6 +70,22 @@ class RecordsetTest extends PHPUnit_Extensions_Database_TestCase
 		
 		$this->assertEquals(2, count($contactCollection));
 	}
+	
+	public function testArrayInterface()
+	{
+		$link = mysql_connect("localhost", "root", "root");
+		mysql_select_db('contacts_test', $link); 
+		$query = 'SELECT * from contacts';
+		
+		$contactCollection = new Recordset(mysql_query($query));
+		
+		$this->assertEquals('Jacopo', $contactCollection[0]['firstname']);
+		$this->assertEquals('Francesco', $contactCollection[1]['firstname']);
+		$this->assertNull($contactCollection[3]);
+		$this->assertFalse($contactCollection->offsetExists(3));
+		$this->assertTrue($contactCollection->offsetExists(1));
+		
+	}
 
 	/**
 	 * @expectedException InvalidArgumentException 
