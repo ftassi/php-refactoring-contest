@@ -37,16 +37,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 else 
 {
   $query = sprintf('SELECT * FROM contacts WHERE id = %s', mysql_real_escape_string($_GET['id']));
-  
-  $rs = mysql_query($query);
-  
-  if (!$rs)
-  {
-    die_with_error(mysql_error(), $query);
-  }
-  
-  $row = mysql_fetch_assoc($rs);
-  
+  $rs = New Recordset(mysql_query($query));
+	$rs->rewind();
+	$row = $rs->current();  
   $_POST['id'] = $row['id'];
   $_POST['firstname'] = $row['firstname'];
   $_POST['lastname'] = $row['lastname'];

@@ -1,16 +1,6 @@
 <?php
 include_once('config.php');
-
-$query = 'SELECT * FROM contacts ORDER BY lastname';
-$rs = mysql_query($query);
-
-if (!$rs)
-{
-  die_with_error(mysql_error(), $query);
-}
-
-$num = mysql_num_rows($rs);
-
+$rs = new Recordset(mysql_query('SELECT * FROM contacts ORDER BY lastname'));
 ?>
 
 <?php include_once('header.php') ?>
@@ -19,7 +9,7 @@ $num = mysql_num_rows($rs);
   <a href="new.php">New contact</a>
  </div>
  
-<?php if ($num) : ?>
+<?php if (count($rs)) : ?>
   <table border="1" cellspacing="0" cellpadding="5">
   <tr>
     <th>Last Name</th>
@@ -28,7 +18,7 @@ $num = mysql_num_rows($rs);
     <th>Mobile</th>
     <th>&nbsp;</th>
   </tr>
-  <?php while($row = mysql_fetch_assoc($rs)) :?>
+  <?php foreach ($rs as $row):?>
     <tr>
       <td><a href="edit.php?id=<?php echo $row['id']?>" title="Modifica"><?php echo $row['lastname']?></a></td>
       <td><?php echo $row['firstname']?></a></td>
@@ -36,7 +26,7 @@ $num = mysql_num_rows($rs);
       <td><a href="callto://<?php echo $row['mobile']?>"><?php echo $row['mobile']?></a></td>
       <td>[<a href="remove.php?id=<?php echo $row['id']?>" title="Elimina" onclick="if (confirm('Are you sure?')) {return true;} return false;">X</a>]</td>
     </tr>
-  <?php endwhile;?>
+  <?php endforeach;?>
   </table>
 
  <?php else: ?>
@@ -46,6 +36,5 @@ $num = mysql_num_rows($rs);
 <?php include_once('footer.php') ?>
 
 <?php
-  mysql_free_result($rs);
   mysql_close($db);
 ?>
