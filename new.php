@@ -20,9 +20,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     {
       die_with_error(mysql_error(), $query);
     }
-    
-    mysql_close($db);
-    
     header('Location: index.php');
     
   }

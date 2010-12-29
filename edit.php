@@ -46,9 +46,6 @@ else
   $_POST['phone'] = $row['phone'];
   $_POST['mobile'] = $row['mobile'];
 }
-
-mysql_close($db);
-
 ?>
 
 <?php include_once('header.php') ?>

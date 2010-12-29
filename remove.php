@@ -13,9 +13,6 @@ if(!mysql_query($query))
 {
   die_with_error(mysql_error(), $query);
 }
-
-mysql_close($db);
-
 header('Location: index.php');
 
 ?>

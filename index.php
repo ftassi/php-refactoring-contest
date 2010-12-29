@@ -34,7 +34,3 @@ $contacts = new Recordset(mysql_query('SELECT * FROM contacts ORDER BY lastname'
 <?php endif ?>
 
 <?php include_once('footer.php') ?>
-
-<?php
-  mysql_close($db);
-?>
