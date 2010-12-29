@@ -3,7 +3,7 @@ require_once 'PHPUnit/Extensions/Database/TestCase.php';
 require_once 'PHPUnit/Extensions/Database/DataSet/CsvDataSet.php';
 require_once dirname(__FILE__).'/../../lib/Recordset.class.php';
 
-class ContactCollectionTest extends PHPUnit_Extensions_Database_TestCase
+class RecordsetTest extends PHPUnit_Extensions_Database_TestCase
 {
 	protected function getConnection()
 	{
