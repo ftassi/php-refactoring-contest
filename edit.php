@@ -22,9 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 else 
 {
   $rs = $db->query('SELECT * FROM contacts WHERE id = %d', $_GET['id']);
-	$rs->rewind();
-	$row = $rs->current();  
-  $form->bind($row);
+  $form->bind($rs[0]);
 }
 ?>
 
