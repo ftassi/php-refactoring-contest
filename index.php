@@ -1,6 +1,6 @@
 <?php
 include_once('config.php');
-$rs = new Recordset(mysql_query('SELECT * FROM contacts ORDER BY lastname'));
+$contacts = new Recordset(mysql_query('SELECT * FROM contacts ORDER BY lastname'));
 ?>
 
 <?php include_once('header.php') ?>
@@ -9,7 +9,7 @@ $rs = new Recordset(mysql_query('SELECT * FROM contacts ORDER BY lastname'));
   <a href="new.php">New contact</a>
  </div>
  
-<?php if (count($rs)) : ?>
+<?php if (count($contacts)) : ?>
   <table border="1" cellspacing="0" cellpadding="5">
   <tr>
     <th>Last Name</th>
@@ -18,13 +18,13 @@ $rs = new Recordset(mysql_query('SELECT * FROM contacts ORDER BY lastname'));
     <th>Mobile</th>
     <th>&nbsp;</th>
   </tr>
-  <?php foreach ($rs as $row):?>
+  <?php foreach ($contacts as $contact):?>
     <tr>
-      <td><a href="edit.php?id=<?php echo $row['id']?>" title="Modifica"><?php echo $row['lastname']?></a></td>
-      <td><?php echo $row['firstname']?></a></td>
-      <td><a href="callto://<?php echo $row['phone']?>"><?php echo $row['phone']?></a></td>
-      <td><a href="callto://<?php echo $row['mobile']?>"><?php echo $row['mobile']?></a></td>
-      <td>[<a href="remove.php?id=<?php echo $row['id']?>" title="Elimina" onclick="if (confirm('Are you sure?')) {return true;} return false;">X</a>]</td>
+      <td><a href="edit.php?id=<?php echo $contact['id']?>" title="Modifica"><?php echo $contact['lastname']?></a></td>
+      <td><?php echo $contact['firstname']?></a></td>
+      <td><a href="callto://<?php echo $contact['phone']?>"><?php echo $contact['phone']?></a></td>
+      <td><a href="callto://<?php echo $contact['mobile']?>"><?php echo $contact['mobile']?></a></td>
+      <td>[<a href="remove.php?id=<?php echo $contact['id']?>" title="Elimina" onclick="if (confirm('Are you sure?')) {return true;} return false;">X</a>]</td>
     </tr>
   <?php endforeach;?>
   </table>
