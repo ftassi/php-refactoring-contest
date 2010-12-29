@@ -5,14 +5,7 @@ if(!$_GET['id'])
 {
  die('Some error occured!!');
 }
-
-$query = sprintf('DELETE FROM contacts where ID = %s',
-                 mysql_real_escape_string($_GET['id']));
-                 
-if(!mysql_query($query))
-{
-  die_with_error(mysql_error(), $query);
-}
+$db->execute('DELETE FROM contacts where ID = %s', $_GET['id']);
 header('Location: index.php');
 
 ?>
